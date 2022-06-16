@@ -1,6 +1,6 @@
 ## Ice-cream-maker
 
-#### A server for this app is [here](https://github.com/VodeniZeko/yum-front)
+#### A server for this app is [here](https://github.com/VodeniZeko/yum-back)
 
 #### Installing
 
