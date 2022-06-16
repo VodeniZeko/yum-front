@@ -1,6 +1,6 @@
 ## Ice-cream-maker
 
-#### A server for this app is [here](https://github.com/VodeniZeko/yum-front)
+#### A server for this app is [here](https://github.com/VodeniZeko/yum-back)
 
 #### Installing
 
@@ -14,7 +14,7 @@ run `npm test`.
 
 ###### Objective:
 
-- ###### Test Form and Popover
+- ###### Test Form and Popover ✅
 
 - ###### Test server response with Mock Service Workers
 
