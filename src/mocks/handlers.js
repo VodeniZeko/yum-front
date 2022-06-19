@@ -1,18 +1,18 @@
-import { rest } from "msv";
+import { rest } from "msw";
 
 export const handlers = [
-    rest.get('http://localhost:3030/scoops', (req,res,ctx) => {
-        return res(
-            ctx.json([
-                {
-                    name:'choco',
-                    imagePath: 'images/choco.png'
-                },
-                {
-                    name:'vanila',
-                    imagePath: 'images/vanila.png'
-                }
-            ])
-        )
-    });
-]
+  rest.get("http://localhost:3030/scoops", (req, res, ctx) => {
+    return res(
+      ctx.json([
+        {
+          name: "Chocolate",
+          imagePath: "images/Chocolate.png",
+        },
+        {
+          name: "Vanilla",
+          imagePath: "images/Vanilla.png",
+        },
+      ])
+    );
+  }),
+];
