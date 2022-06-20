@@ -18,6 +18,6 @@ run `npm test`.
 
 - ###### Test server response with Mock Service Workers ✅
 
-- ###### Test Components wrapped in a Provider
+- ###### Test Components wrapped in a Provider ✅
 
 - ###### Setup CI/CD workflow to automate testing using Github actions
