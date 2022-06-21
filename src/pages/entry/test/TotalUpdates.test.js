@@ -1,12 +1,12 @@
-import { screen, render } from "@testing-library/react";
+import { screen, render } from "../../../test-utils/testing-library-utils";
 import userEvent from "@testing-library/user-event";
 
 import { OrderDetailsProvider } from "../../../context/OrderDetails";
 import Options from "../Options";
+import OrderEntry from "../OrderEntry";
 
 test("update scoop subtotal when it changes", async () => {
-  //this wrapper should be wrapping every component, so we dont use it individally every time
-  render(<Options optionType={"scoops"} />, { wrapper: OrderDetailsProvider });
+  render(<Options optionType={"scoops"} />);
 
   // total starts at 0
   const scoopsSubtotal = screen.getByText("Scoops total: $", { exact: false });
@@ -60,4 +60,88 @@ test("update toppings subtota when checked", async () => {
   // click/update/UN-CHECK Cherries topping and check subtotal
   userEvent.click(cherrieCheckmark);
   expect(toppingsSubtotal).toHaveTextContent("3.00");
+});
+
+//test grand total implementation
+
+describe("grand total", () => {
+  test("grand total starts at zero", () => {
+    render(<OrderEntry />);
+    const grandTotal = screen.getByRole("heading", {
+      name: /grand total: \$/i,
+    });
+    expect(grandTotal).toHaveTextContent("0.00");
+  });
+
+  test("grand total updates if scoop is added first", async () => {
+    render(<OrderEntry />);
+    const grandTotal = screen.getByRole("heading", {
+      name: /grand total: \$/i,
+    });
+
+    //update vanilla scoopt to 2 and ceck grand total
+    const vanillaInput = await screen.findByTestId("Vanilla-count");
+    userEvent.clear(vanillaInput);
+    userEvent.type(vanillaInput, "2");
+    expect(grandTotal).toHaveTextContent("4.00");
+
+    //add cherries and check grand total
+    const cherrieCheckmark = await screen.findByTestId(
+      "Cherries-topping-test-id"
+    );
+    expect(cherrieCheckmark).not.toBeChecked();
+    userEvent.click(cherrieCheckmark);
+    expect(grandTotal).toHaveTextContent("5.50");
+  });
+
+  test("grand total updates if topping is added first", async () => {
+    render(<OrderEntry />);
+
+    const grandTotal = screen.getByRole("heading", {
+      name: /grand total: \$/i,
+    });
+
+    //add cherries and check grand total
+    const cherrieCheckmark = await screen.findByTestId(
+      "Cherries-topping-test-id"
+    );
+    expect(cherrieCheckmark).not.toBeChecked();
+    userEvent.click(cherrieCheckmark);
+    expect(grandTotal).toHaveTextContent("1.50");
+
+    //update vanilla scoopt to 2 and ceck grand total
+    const vanillaInput = await screen.findByTestId("Vanilla-count");
+    userEvent.clear(vanillaInput);
+    userEvent.type(vanillaInput, "2");
+    expect(grandTotal).toHaveTextContent("5.50");
+  });
+
+  test("grand total updates if item is removed", async () => {
+    render(<OrderEntry />);
+
+    //add cherries : grand total will be 1.50
+    const cherrieCheckmark = await screen.findByTestId(
+      "Cherries-topping-test-id"
+    );
+    userEvent.click(cherrieCheckmark);
+
+    //update vanilla scoopt to 2 : grand total is 5:50
+    const vanillaInput = await screen.findByTestId("Vanilla-count");
+    userEvent.clear(vanillaInput);
+    userEvent.type(vanillaInput, "2");
+
+    //remove 1 scoop of vanilla
+    userEvent.clear(vanillaInput);
+    userEvent.type(vanillaInput, "1");
+
+    //chek grand total
+    const grandTotal = screen.getByRole("heading", {
+      name: /grand total: \$/i,
+    });
+    expect(grandTotal).toHaveTextContent("3.50");
+
+    //remove checrries now
+    userEvent.click(cherrieCheckmark);
+    expect(grandTotal).toHaveTextContent("2.00");
+  });
 });

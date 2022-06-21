@@ -18,7 +18,7 @@ test("handles errors when scoops and toppings are not returned", async () => {
     })
   );
 
-  render(<OrderEntry />);
+  render(<OrderEntry setOrderPhase={jest.fn()} />);
 
   // where we use waitFor because after first api call tests execute
   //and we dont "wait for" another api call so that we an test both
