@@ -17,7 +17,7 @@ jobs:
           node-version: "12.x"
       - run: npm ci
       - run: npm run format:check
-      - run: npm run test -- --coverage --watchAll=true
+      - run: npm run test -- --coverage --watchAll=false
       - name: Build Project
         if: github.event_name == 'push'
         run: npm run build
