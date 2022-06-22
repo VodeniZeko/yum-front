@@ -24,12 +24,6 @@
     "format:check": "prettier --check \"**/*.{js,jsx,yml,yaml,json,scss,md}\"",
     "format:write": "prettier --write \"**/*.{js,jsx,yml,yaml,json,scss,md}\""
   },
-  "husky": {
-    "hooks": {
-      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS",
-      "prepare-commit-msg": "exec < /dev/tty && git cz --hook || true"
-    }
-  },
   "browserslist": {
     "production": [
       ">0.2%",
@@ -49,14 +43,7 @@
     "@testing-library/react": "^13.3.0",
     "@testing-library/user-event": "^13.5.0",
     "ajv": "^6.9.1",
-    "cz-conventional-changelog": "^3.3.0",
-    "husky": "^4.3.8",
     "prettier": "^2.7.1",
     "semantic-release": "^19.0.3"
-  },
-  "config": {
-    "commitizen": {
-      "path": "./node_modules/cz-conventional-changelog"
-    }
   }
 }
