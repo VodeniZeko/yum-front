@@ -5,7 +5,7 @@ import OrderEntry from "./pages/entry/OrderEntry";
 function App() {
   return (
     <Container>
-      Ice cream maker
+      <p>Ice Cream Maker</p>
       <OrderDetailsProvider>
         <OrderEntry />
       </OrderDetailsProvider>
