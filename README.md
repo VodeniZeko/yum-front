@@ -12,7 +12,7 @@ run `npm test`.
 
 ---
 
-###### Objective:
+###### Objective
 
 - ###### Test Form and Popover ✅
 
