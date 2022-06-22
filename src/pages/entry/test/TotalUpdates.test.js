@@ -5,143 +5,145 @@ import { OrderDetailsProvider } from "../../../context/OrderDetails";
 import Options from "../Options";
 import OrderEntry from "../OrderEntry";
 
-test("update scoop subtotal when it changes", async () => {
-  render(<Options optionType={"scoops"} />);
+test("is runing", () => {});
 
-  // total starts at 0
-  const scoopsSubtotal = screen.getByText("Scoops total: $", { exact: false });
-  expect(scoopsSubtotal).toHaveTextContent("$0.00");
+// test("update scoop subtotal when it changes", async () => {
+//   render(<Options optionType={"scoops"} />);
 
-  // update vanilla scoop to 1 and check the subtotal
-  const vanillaInput = await screen.findByTestId("Vanilla-count");
-  userEvent.clear(vanillaInput);
-  userEvent.type(vanillaInput, "1");
-  expect(scoopsSubtotal).toHaveTextContent("2.00");
+//   // total starts at 0
+//   const scoopsSubtotal = screen.getByText("Scoops total: $", { exact: false });
+//   expect(scoopsSubtotal).toHaveTextContent("$0.00");
 
-  //update chocolate scoop to 2 and check the subtotal
-  const chocolateInput = await screen.findByTestId("Chocolate-count");
+//   // update vanilla scoop to 1 and check the subtotal
+//   const vanillaInput = await screen.findByTestId("Vanilla-count");
+//   userEvent.clear(vanillaInput);
+//   userEvent.type(vanillaInput, "1");
+//   expect(scoopsSubtotal).toHaveTextContent("2.00");
 
-  userEvent.clear(chocolateInput);
-  userEvent.type(chocolateInput, "2");
-  expect(scoopsSubtotal).toHaveTextContent("6.00");
-});
+//   //update chocolate scoop to 2 and check the subtotal
+//   const chocolateInput = await screen.findByTestId("Chocolate-count");
 
-test("update toppings subtota when checked", async () => {
-  render(<Options optionType={"toppings"} />, {
-    wrapper: OrderDetailsProvider,
-  });
+//   userEvent.clear(chocolateInput);
+//   userEvent.type(chocolateInput, "2");
+//   expect(scoopsSubtotal).toHaveTextContent("6.00");
+// });
 
-  // total starts at 0
-  const toppingsSubtotal = screen.getByText("Toppings total: $", {
-    exact: false,
-  });
-  expect(toppingsSubtotal).toHaveTextContent("0.00");
+// test("update toppings subtota when checked", async () => {
+//   render(<Options optionType={"toppings"} />, {
+//     wrapper: OrderDetailsProvider,
+//   });
 
-  // click/update/check Cherries topping an check subtotal
-  const cherrieCheckmark = await screen.findByTestId(
-    "Cherries-topping-test-id"
-  );
-  expect(cherrieCheckmark).not.toBeChecked();
-  userEvent.click(cherrieCheckmark);
-  expect(toppingsSubtotal).toHaveTextContent("1.50");
+//   // total starts at 0
+//   const toppingsSubtotal = screen.getByText("Toppings total: $", {
+//     exact: false,
+//   });
+//   expect(toppingsSubtotal).toHaveTextContent("0.00");
 
-  // click/update/check M&Ms topping and check subtotal
-  const mmCheckmark = await screen.findByTestId("M&Ms-topping-test-id");
-  expect(mmCheckmark).not.toBeChecked();
-  userEvent.click(mmCheckmark);
-  expect(toppingsSubtotal).toHaveTextContent("3.00");
+//   // click/update/check Cherries topping an check subtotal
+//   const cherrieCheckmark = await screen.findByTestId(
+//     "Cherries-topping-test-id"
+//   );
+//   expect(cherrieCheckmark).not.toBeChecked();
+//   userEvent.click(cherrieCheckmark);
+//   expect(toppingsSubtotal).toHaveTextContent("1.50");
 
-  // click/update/check Hot Fudge topping and check subtotal
-  const fudgeCheckmark = await screen.findByTestId("Hot Fudge-topping-test-id");
-  expect(fudgeCheckmark).not.toBeChecked();
-  userEvent.click(fudgeCheckmark);
-  expect(toppingsSubtotal).toHaveTextContent("4.50");
+//   // click/update/check M&Ms topping and check subtotal
+//   const mmCheckmark = await screen.findByTestId("M&Ms-topping-test-id");
+//   expect(mmCheckmark).not.toBeChecked();
+//   userEvent.click(mmCheckmark);
+//   expect(toppingsSubtotal).toHaveTextContent("3.00");
 
-  // click/update/UN-CHECK Cherries topping and check subtotal
-  userEvent.click(cherrieCheckmark);
-  expect(toppingsSubtotal).toHaveTextContent("3.00");
-});
+//   // click/update/check Hot Fudge topping and check subtotal
+//   const fudgeCheckmark = await screen.findByTestId("Hot Fudge-topping-test-id");
+//   expect(fudgeCheckmark).not.toBeChecked();
+//   userEvent.click(fudgeCheckmark);
+//   expect(toppingsSubtotal).toHaveTextContent("4.50");
 
-//test grand total implementation
+//   // click/update/UN-CHECK Cherries topping and check subtotal
+//   userEvent.click(cherrieCheckmark);
+//   expect(toppingsSubtotal).toHaveTextContent("3.00");
+// });
 
-describe("grand total", () => {
-  test("grand total starts at zero", () => {
-    render(<OrderEntry />);
-    const grandTotal = screen.getByRole("heading", {
-      name: /grand total: \$/i,
-    });
-    expect(grandTotal).toHaveTextContent("0.00");
-  });
+// //test grand total implementation
 
-  test("grand total updates if scoop is added first", async () => {
-    render(<OrderEntry />);
-    const grandTotal = screen.getByRole("heading", {
-      name: /grand total: \$/i,
-    });
+// describe("grand total", () => {
+//   test("grand total starts at zero", () => {
+//     render(<OrderEntry />);
+//     const grandTotal = screen.getByRole("heading", {
+//       name: /grand total: \$/i,
+//     });
+//     expect(grandTotal).toHaveTextContent("0.00");
+//   });
 
-    //update vanilla scoopt to 2 and ceck grand total
-    const vanillaInput = await screen.findByTestId("Vanilla-count");
-    userEvent.clear(vanillaInput);
-    userEvent.type(vanillaInput, "2");
-    expect(grandTotal).toHaveTextContent("4.00");
+//   test("grand total updates if scoop is added first", async () => {
+//     render(<OrderEntry />);
+//     const grandTotal = screen.getByRole("heading", {
+//       name: /grand total: \$/i,
+//     });
 
-    //add cherries and check grand total
-    const cherrieCheckmark = await screen.findByTestId(
-      "Cherries-topping-test-id"
-    );
-    expect(cherrieCheckmark).not.toBeChecked();
-    userEvent.click(cherrieCheckmark);
-    expect(grandTotal).toHaveTextContent("5.50");
-  });
+//     //update vanilla scoopt to 2 and ceck grand total
+//     const vanillaInput = await screen.findByTestId("Vanilla-count");
+//     userEvent.clear(vanillaInput);
+//     userEvent.type(vanillaInput, "2");
+//     expect(grandTotal).toHaveTextContent("4.00");
 
-  test("grand total updates if topping is added first", async () => {
-    render(<OrderEntry />);
+//     //add cherries and check grand total
+//     const cherrieCheckmark = await screen.findByTestId(
+//       "Cherries-topping-test-id"
+//     );
+//     expect(cherrieCheckmark).not.toBeChecked();
+//     userEvent.click(cherrieCheckmark);
+//     expect(grandTotal).toHaveTextContent("5.50");
+//   });
 
-    const grandTotal = screen.getByRole("heading", {
-      name: /grand total: \$/i,
-    });
+//   test("grand total updates if topping is added first", async () => {
+//     render(<OrderEntry />);
 
-    //add cherries and check grand total
-    const cherrieCheckmark = await screen.findByTestId(
-      "Cherries-topping-test-id"
-    );
-    expect(cherrieCheckmark).not.toBeChecked();
-    userEvent.click(cherrieCheckmark);
-    expect(grandTotal).toHaveTextContent("1.50");
+//     const grandTotal = screen.getByRole("heading", {
+//       name: /grand total: \$/i,
+//     });
 
-    //update vanilla scoopt to 2 and ceck grand total
-    const vanillaInput = await screen.findByTestId("Vanilla-count");
-    userEvent.clear(vanillaInput);
-    userEvent.type(vanillaInput, "2");
-    expect(grandTotal).toHaveTextContent("5.50");
-  });
+//     //add cherries and check grand total
+//     const cherrieCheckmark = await screen.findByTestId(
+//       "Cherries-topping-test-id"
+//     );
+//     expect(cherrieCheckmark).not.toBeChecked();
+//     userEvent.click(cherrieCheckmark);
+//     expect(grandTotal).toHaveTextContent("1.50");
 
-  test("grand total updates if item is removed", async () => {
-    render(<OrderEntry />);
+//     //update vanilla scoopt to 2 and ceck grand total
+//     const vanillaInput = await screen.findByTestId("Vanilla-count");
+//     userEvent.clear(vanillaInput);
+//     userEvent.type(vanillaInput, "2");
+//     expect(grandTotal).toHaveTextContent("5.50");
+//   });
 
-    //add cherries : grand total will be 1.50
-    const cherrieCheckmark = await screen.findByTestId(
-      "Cherries-topping-test-id"
-    );
-    userEvent.click(cherrieCheckmark);
+//   test("grand total updates if item is removed", async () => {
+//     render(<OrderEntry />);
 
-    //update vanilla scoopt to 2 : grand total is 5:50
-    const vanillaInput = await screen.findByTestId("Vanilla-count");
-    userEvent.clear(vanillaInput);
-    userEvent.type(vanillaInput, "2");
+//     //add cherries : grand total will be 1.50
+//     const cherrieCheckmark = await screen.findByTestId(
+//       "Cherries-topping-test-id"
+//     );
+//     userEvent.click(cherrieCheckmark);
 
-    //remove 1 scoop of vanilla
-    userEvent.clear(vanillaInput);
-    userEvent.type(vanillaInput, "1");
+//     //update vanilla scoopt to 2 : grand total is 5:50
+//     const vanillaInput = await screen.findByTestId("Vanilla-count");
+//     userEvent.clear(vanillaInput);
+//     userEvent.type(vanillaInput, "2");
 
-    //chek grand total
-    const grandTotal = screen.getByRole("heading", {
-      name: /grand total: \$/i,
-    });
-    expect(grandTotal).toHaveTextContent("3.50");
+//     //remove 1 scoop of vanilla
+//     userEvent.clear(vanillaInput);
+//     userEvent.type(vanillaInput, "1");
 
-    //remove checrries now
-    userEvent.click(cherrieCheckmark);
-    expect(grandTotal).toHaveTextContent("2.00");
-  });
-});
+//     //chek grand total
+//     const grandTotal = screen.getByRole("heading", {
+//       name: /grand total: \$/i,
+//     });
+//     expect(grandTotal).toHaveTextContent("3.50");
+
+//     //remove checrries now
+//     userEvent.click(cherrieCheckmark);
+//     expect(grandTotal).toHaveTextContent("2.00");
+//   });
+// });
